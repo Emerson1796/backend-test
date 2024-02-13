@@ -1,19 +1,16 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RedirectController;
+use App\Http\Controllers\StatsController;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+// CRUD de Redirects
+Route::apiResource('redirects', RedirectController::class);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Estatísticas de Acesso para um Redirect específico
+Route::get('redirects/{redirect}/stats', [StatsController::class, 'showStats'])->name('redirects.stats');
+
+// Logs de Acesso para um Redirect específico
+Route::get('redirects/{redirect}/logs', [StatsController::class, 'showLogs'])->name('redirects.logs');
+
+Route::get('/r/{code}', [RedirectController::class, 'redirectToDestination'])->name('redirect.to.destination');
