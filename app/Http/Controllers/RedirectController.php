@@ -89,7 +89,6 @@ class RedirectController extends Controller
             'user_agent' => $request->header('User-Agent'),
             'referer' => $request->header('Referer'),
             'query_params' => json_encode($request->query()),
-            'accessed_at' => now()
         ];
 
         $redirect->logs()->create($accessLogData);
